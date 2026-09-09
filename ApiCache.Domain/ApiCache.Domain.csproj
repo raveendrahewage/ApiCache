@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ApiCache.Helper\ApiCache.Helper.csproj" />
+  </ItemGroup>
+
 </Project>
