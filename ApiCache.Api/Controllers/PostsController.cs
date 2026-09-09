@@ -20,13 +20,13 @@ public class PostsController(IPostService postService) : Controller
     }
 
     [HttpGet("user/{userId}")]
-    public async Task<IActionResult> GetPostsByUserId(int userId, [FromQuery] bool cachedOnly = true)
+    public async Task<IActionResult> GetPostsByUserId(int userId, [FromQuery] bool cachedOnly = false)
     {
         return Ok(await _postService.GetPostsByUserIdAsync(userId, cachedOnly));
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllPosts([FromQuery] bool cachedOnly = true)
+    public async Task<IActionResult> GetAllPosts([FromQuery] bool cachedOnly = false)
     {
         return Ok(await _postService.GetAllPostsAsync(cachedOnly));
     }

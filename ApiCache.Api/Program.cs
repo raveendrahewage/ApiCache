@@ -1,3 +1,4 @@
+using ApiCache.Api.Filters;
 using ApiCache.Api.Middleware;
 using ApiCache.Infrastructure;
 
@@ -5,7 +6,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddInfrastruture(builder.Configuration);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ApiResponseWrapperFilter>();
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

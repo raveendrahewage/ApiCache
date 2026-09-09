@@ -15,47 +15,22 @@ public class PostApiClient(HttpClient httpClient, IOptions<PostApiOptions> optio
 
     public async Task<Post?> FetchPostByIdAsync(int id)
     {
-        try
-        {
-            var response = await SendRequestAsync(() => _httpClient.GetAsync($"{_options.BaseUrl.TrimEnd('/')}/posts/{id}"));
-            if (response.StatusCode == HttpStatusCode.NotFound)
-                return null;
-
-            response.EnsureSuccessStatusCode();
-            return await ReadJsonContentAsync<Post>(response);
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        var response = await SendRequestAsync(() => _httpClient.GetAsync($"{_options.BaseUrl.TrimEnd('/')}/posts/{id}"));
+        if (response.StatusCode == HttpStatusCode.NotFound)
+            return null;
+        return await ReadJsonContentAsync<Post>(response);
     }
 
     public async Task<IEnumerable<Post>> FetchPostsByUserIdAsync(int userId)
     {
-        try
-        {
-            var response = await SendRequestAsync(() => _httpClient.GetAsync($"{_options.BaseUrl.TrimEnd('/')}/posts?userId={userId}"));
-            response.EnsureSuccessStatusCode();
-            return await ReadJsonContentAsync<IEnumerable<Post>>(response) ?? [];
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        var response = await SendRequestAsync(() => _httpClient.GetAsync($"{_options.BaseUrl.TrimEnd('/')}/posts?userId={userId}"));
+        return await ReadJsonContentAsync<IEnumerable<Post>>(response) ?? [];
     }
 
     public async Task<IEnumerable<Post>> FetchAllPostsAsync()
     {
-        try
-        {
-            var response = await SendRequestAsync(() => _httpClient.GetAsync($"{_options.BaseUrl.TrimEnd('/')}/posts"));
-            response.EnsureSuccessStatusCode();
-            return await ReadJsonContentAsync<IEnumerable<Post>>(response) ?? [];
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        var response = await SendRequestAsync(() => _httpClient.GetAsync($"{_options.BaseUrl.TrimEnd('/')}/posts"));
+        return await ReadJsonContentAsync<IEnumerable<Post>>(response) ?? [];
     }
 
     private static async Task<HttpResponseMessage> SendRequestAsync(Func<Task<HttpResponseMessage>> requestFunc)
@@ -66,18 +41,18 @@ public class PostApiClient(HttpClient httpClient, IOptions<PostApiOptions> optio
 
             if (!response.IsSuccessStatusCode && response.StatusCode != HttpStatusCode.NotFound)
             {
-                throw new ExternalApiException($"External API error while.", HttpStatusCode.BadGateway);
+                throw new ExternalApiException($"External API error while fetching post(s).", HttpStatusCode.BadGateway);
             }
 
             return response;
         }
         catch (HttpRequestException)
         {
-            throw new ExternalApiException($"Network failure.", HttpStatusCode.BadGateway);
+            throw new ExternalApiException($"External API failure.", HttpStatusCode.BadGateway);
         }
         catch (TaskCanceledException)
         {
-            throw new ExternalApiException($"Request timed out.", HttpStatusCode.GatewayTimeout);
+            throw new ExternalApiException($"External API request timed out.", HttpStatusCode.GatewayTimeout);
         }
     }
 

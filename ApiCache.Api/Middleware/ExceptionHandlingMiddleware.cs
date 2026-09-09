@@ -1,4 +1,5 @@
 ﻿using ApiCache.Helper.Exceptions;
+using ApiCache.Helper.Models;
 using System.Net;
 using System.Text.Json;
 
@@ -37,7 +38,7 @@ public class ExceptionHandlingMiddleware(RequestDelegate next)
 
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = statusCode;
-        var result = JsonSerializer.Serialize(new { statusCode, message });
+        var result = JsonSerializer.Serialize(new ApiResponse<object?>(statusCode, message, null));
         return context.Response.WriteAsync(result);
     }
 }

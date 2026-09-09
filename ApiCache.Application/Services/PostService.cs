@@ -34,7 +34,7 @@ public class PostService(IPostRepository postRepository, IPostApiClient postApiC
         }
     }
 
-    public async Task<IEnumerable<PostDto>> GetPostsByUserIdAsync(int userId, bool cachedOnly = true)
+    public async Task<IEnumerable<PostDto>> GetPostsByUserIdAsync(int userId, bool cachedOnly = false)
     {
         try
         {
@@ -59,7 +59,7 @@ public class PostService(IPostRepository postRepository, IPostApiClient postApiC
         }
     }
 
-    public async Task<IEnumerable<PostDto>> GetAllPostsAsync(bool cachedOnly = true)
+    public async Task<IEnumerable<PostDto>> GetAllPostsAsync(bool cachedOnly = false)
     {
         try
         {
