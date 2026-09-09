@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="ApiCache.Api/ApiCache.Api.csproj" />
+  <Project Path="ApiCache.Application/ApiCache.Application.csproj" />
+  <Project Path="ApiCache.Domain/ApiCache.Domain.csproj" />
+  <Project Path="ApiCache.Infrastructure/ApiCache.Infrastructure.csproj" />
+</Solution>
