@@ -1,3 +1,4 @@
+using ApiCache.Api.Middleware;
 using ApiCache.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,8 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 DbInitializer.Initialize(builder.Configuration);
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {

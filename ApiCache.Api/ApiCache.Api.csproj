@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ApiCache.Application\ApiCache.Application.csproj" />
+    <ProjectReference Include="..\ApiCache.Helper\ApiCache.Helper.csproj" />
     <ProjectReference Include="..\ApiCache.Infrastructure\ApiCache.Infrastructure.csproj" />
   </ItemGroup>
 

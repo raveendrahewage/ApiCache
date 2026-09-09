@@ -1,5 +1,6 @@
 ﻿using ApiCache.Application.Dtos;
 using ApiCache.Application.Interfaces;
+using ApiCache.Helper.Exceptions;
 
 namespace ApiCache.Application.Services;
 
@@ -11,6 +12,9 @@ public class PostService(IPostRepository postRepository, IPostApiClient postApiC
     {
         try
         {
+            if(id <= 0)
+                throw new HumanErrorException("Post ID is invalid.");
+
             var cachedPost = await _postRepository.GetPostByIdAsync(id);
             if(cachedPost is not null)
                 return new PostDto(cachedPost.Id, cachedPost.UserId, cachedPost.Title, cachedPost.Body);
@@ -22,7 +26,7 @@ public class PostService(IPostRepository postRepository, IPostApiClient postApiC
                 return new PostDto(apiPost.Id, apiPost.UserId, apiPost.Title, apiPost.Body);
             }
 
-            return null;
+            throw new NotFoundException("Post not found.");
         }
         catch (Exception)
         {
@@ -34,7 +38,10 @@ public class PostService(IPostRepository postRepository, IPostApiClient postApiC
     {
         try
         {
-            if(cachedOnly)
+            if (userId <= 0)
+                throw new HumanErrorException("User ID is invalid.");
+
+            if (cachedOnly)
             {
                 var cachedPosts = await _postRepository.GetPostsByUserIdAsync(userId);
                 return cachedPosts.Select(p => new PostDto(p.Id, p.UserId, p.Title, p.Body));
@@ -78,6 +85,9 @@ public class PostService(IPostRepository postRepository, IPostApiClient postApiC
     {
         try
         {
+            if (id <= 0)
+                throw new HumanErrorException("Post ID is invalid.");
+
             return await _postRepository.DeletePostAsync(id);
         }
         catch (Exception)
@@ -90,6 +100,9 @@ public class PostService(IPostRepository postRepository, IPostApiClient postApiC
     {
         try
         {
+            if (userId <= 0)
+                throw new HumanErrorException("User ID is invalid.");
+
             return await _postRepository.DeletePostsByUserIdAsync(userId);
         }
         catch (Exception)

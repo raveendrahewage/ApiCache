@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ApiCache.Application\ApiCache.Application.csproj" />
     <ProjectReference Include="..\ApiCache.Domain\ApiCache.Domain.csproj" />
+    <ProjectReference Include="..\ApiCache.Helper\ApiCache.Helper.csproj" />
   </ItemGroup>
 
 </Project>

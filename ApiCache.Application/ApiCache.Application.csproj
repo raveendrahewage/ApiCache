@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ApiCache.Domain\ApiCache.Domain.csproj" />
+    <ProjectReference Include="..\ApiCache.Helper\ApiCache.Helper.csproj" />
   </ItemGroup>
 
 </Project>
