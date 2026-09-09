@@ -1,4 +1,4 @@
-﻿using ApiCache.Helper.Models;
+using ApiCache.Helper.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -17,8 +17,8 @@ namespace ApiCache.Api.Filters
                     var wrapperType = typeof(ApiResponse<>).MakeGenericType(rawData.GetType());
                     var wrapperResponse = Activator.CreateInstance(wrapperType);
 
-                    wrapperType.GetProperty("StatusCode").SetValue(wrapperResponse, objectResult.StatusCode);
-                    wrapperType.GetProperty("Data").SetValue(wrapperResponse, rawData);
+                    wrapperType.GetProperty("StatusCode")?.SetValue(wrapperResponse, objectResult.StatusCode);
+                    wrapperType.GetProperty("Data")?.SetValue(wrapperResponse, rawData);
 
                     objectResult.Value = wrapperResponse;
                 }
