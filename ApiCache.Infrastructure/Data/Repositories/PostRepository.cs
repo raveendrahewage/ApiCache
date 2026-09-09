@@ -76,7 +76,7 @@ public class PostRepository(IConfiguration configuration) : IPostRepository
                     UserId,
                     Title,
                     Body,
-                    FetchedAt,
+                    FetchedAt
                 )
                 VALUES (
                     @Id,
@@ -112,7 +112,7 @@ public class PostRepository(IConfiguration configuration) : IPostRepository
                     UserId,
                     Title,
                     Body,
-                    FetchedAt,
+                    FetchedAt
                 )
                 VALUES (
                     @Id,

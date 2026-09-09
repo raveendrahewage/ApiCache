@@ -10,6 +10,8 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+DbInitializer.Initialize(builder.Configuration);
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
