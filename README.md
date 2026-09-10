@@ -29,7 +29,7 @@ I have added an endpoint to clear the cache if needed.
    ```
 3. Run the project:
    ```bash
-   dotnet run
+   dotnet run --project ApiCache.Api
    ```
 
 Note: Since the application uses `SQL Server Express LocalDB`, you don not need to manually create the database. The app will automatically create the database and the required tables on startup.
